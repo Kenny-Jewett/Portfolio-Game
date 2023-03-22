@@ -12,17 +12,17 @@ var keyPress = function keyPress(pressedKey) {
   console.log(player);
 
   if (pressedKey == "ArrowRight") {
-    player.setAttribute("x", "".concat(playerXPosition, "%"));
     playerXPosition++;
-  } else if (pressedKey == "ArrowLeft") {
     player.setAttribute("x", "".concat(playerXPosition, "%"));
+  } else if (pressedKey == "ArrowLeft") {
     playerXPosition--;
+    player.setAttribute("x", "".concat(playerXPosition, "%"));
   } else if (pressedKey == "ArrowDown") {
-    player.setAttribute("y", "".concat(playerYPosition, "%"));
     playerYPosition++;
-  } else if (pressedKey == "ArrowUp") {
     player.setAttribute("y", "".concat(playerYPosition, "%"));
+  } else if (pressedKey == "ArrowUp") {
     playerYPosition--;
+    player.setAttribute("y", "".concat(playerYPosition, "%"));
   }
 
   console.log(pressedKey);

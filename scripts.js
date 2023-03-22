@@ -14,23 +14,20 @@ const keyPress = (pressedKey) => {
     console.log(player);
     
     if (pressedKey == "ArrowRight") {
-        player.setAttribute("x", `${playerXPosition}%`);
         playerXPosition++;
+        player.setAttribute("x", `${playerXPosition}%`);
 
     } else if (pressedKey == "ArrowLeft"){
-        player.setAttribute("x", `${playerXPosition}%`);
         playerXPosition--;
+        player.setAttribute("x", `${playerXPosition}%`);
 
     } else if (pressedKey == "ArrowDown") {
-        player.setAttribute("y", `${playerYPosition}%`)
         playerYPosition++;
-    } else if (pressedKey == "ArrowUp") {
         player.setAttribute("y", `${playerYPosition}%`)
+    } else if (pressedKey == "ArrowUp") {
         playerYPosition--;
-    }
-
-
-    
+        player.setAttribute("y", `${playerYPosition}%`)
+    }    
     console.log(pressedKey);   
     return pressedKey;
 }
