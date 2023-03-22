@@ -25,19 +25,17 @@ picture {
 }
   
 .main__container {
-    min-height: 100dvh;
+    min-height: 100dvh;   
     
-    
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-gap: .2rem;
 }
-   
 
 
-.main__div__rectangle {
-    width: 100%;
-    height: 100%;   
-    background: black;    
+.main__svg__container {
+    border: solid 2px black;
 }
+
+.main__svg__player {
+    
+}
+
+
