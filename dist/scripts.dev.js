@@ -2,43 +2,86 @@
 
 var player = document.querySelector(".main__svg__player");
 var mainContainerGrid = document.querySelector(".main__container");
-var position = 0;
+var enemy = document.querySelector(".main__svg__enemy"); // const playerHitBox = player.getBBox()
+// const enemyHitBox = enemy.getBBox()
+
+var playerPosition = {
+  x: player.getAttribute("x"),
+  y: player.getAttribute("y"),
+  width: player.getAttribute("width"),
+  height: player.getAttribute("height")
+};
+var enemyPosition = {
+  x: enemy.getAttribute("x"),
+  y: enemy.getAttribute("y"),
+  width: enemy.getAttribute("width"),
+  height: enemy.getAttribute("height")
+};
 var playerXPosition = 0;
 var playerYPosition = 0;
 
-var movePlayer = function movePlayer() {};
+document.onkeydown = function (e) {
+  if (checkCollision()) {
+    keyPress(e.key);
+    enemyKeyPress(e.key);
+  } else {
+    keyPress(e.key);
+  }
+};
+
+var checkCollision = function checkCollision() {
+  if (playerPosition.x == enemyPosition.x && playerPosition.y == enemyPosition.y) {
+    console.log("collision");
+    return true;
+  } else {
+    console.log("no collision");
+    return false;
+  }
+};
 
 var keyPress = function keyPress(pressedKey) {
-  console.log(player);
-
   if (pressedKey == "ArrowRight") {
-    playerXPosition++;
-    player.setAttribute("x", "".concat(playerXPosition, "%"));
+    playerXPosition += 5;
+    player.setAttribute("x", "".concat(playerXPosition));
+    playerPosition.x = player.getAttribute("x");
   } else if (pressedKey == "ArrowLeft") {
-    playerXPosition--;
-    player.setAttribute("x", "".concat(playerXPosition, "%"));
+    playerXPosition -= 5;
+    player.setAttribute("x", "".concat(playerXPosition));
+    playerPosition.x = player.getAttribute("x");
   } else if (pressedKey == "ArrowDown") {
-    playerYPosition++;
-    player.setAttribute("y", "".concat(playerYPosition, "%"));
+    playerYPosition += 5;
+    player.setAttribute("y", "".concat(playerYPosition));
+    playerPosition.y = player.getAttribute("y");
   } else if (pressedKey == "ArrowUp") {
-    playerYPosition--;
-    player.setAttribute("y", "".concat(playerYPosition, "%"));
-  }
+    playerYPosition -= 5;
+    player.setAttribute("y", "".concat(playerYPosition));
+    playerPosition.y = player.getAttribute("y");
+  } // console.log(enemyPosition.width);
+  // console.log(enemyPosition.height);
 
-  console.log(pressedKey);
+
+  console.log(enemyPosition.x);
+  console.log(enemyPosition.y);
+  console.log(playerPosition.x);
+  console.log(playerPosition.y);
   return pressedKey;
 };
 
-document.onkeydown = function (e) {
-  keyPress(e.key);
-};
+var enemyKeyPress = function enemyKeyPress(pressedKey) {
+  if (pressedKey == "ArrowRight") {
+    enemy.setAttribute("x", "".concat(playerXPosition));
+    enemyPosition.x = enemy.getAttribute("x");
+  } else if (pressedKey == "ArrowLeft") {
+    enemy.setAttribute("x", "".concat(playerXPosition));
+    enemyPosition.x = enemy.getAttribute("x");
+  } else if (pressedKey == "ArrowDown") {
+    enemy.setAttribute("y", "".concat(playerYPosition));
+    enemyPosition.y = enemy.getAttribute("y");
+  } else if (pressedKey == "ArrowUp") {
+    enemy.setAttribute("y", "".concat(playerYPosition));
+    enemyPosition.y = enemy.getAttribute("y");
+  }
 
-module.exports = {
-  keyPress: keyPress
-}; // let nextColumn = 1;   
-// if (e.key == `ArrowRight`) {
-//  snakeHead.style.background = "green";
-//  snakeHead.style["grid-column"] =  `${nextColumn++} / 2`;
-// } else if (e.key == `ArrowDown`) {
-// }
-//  console.log(e.key);
+  return pressedKey;
+}; //Testing suite
+// module.exports = { keyPress }
