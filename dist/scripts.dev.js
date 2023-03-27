@@ -21,7 +21,10 @@ var playerXPosition = 0;
 var playerYPosition = 0;
 
 document.onkeydown = function (e) {
-  if (checkCollision()) {
+  if (e.key == " ") {
+    playerPosition.x += 5;
+    keyPress(e.key);
+  } else if (checkCollision()) {
     keyPress(e.key);
     enemyKeyPress(e.key);
   } else {

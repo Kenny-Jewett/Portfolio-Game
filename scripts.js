@@ -23,10 +23,15 @@ let playerYPosition = 0;
 
 
 document.onkeydown = (e) => {   
-    if (checkCollision()){
+    if (e.key == " "){
+        playerPosition.x += 5;
+        keyPress(e.key) 
+    
+    }else if (checkCollision()){
         keyPress(e.key)
         enemyKeyPress(e.key)
-    } else {        
+
+    }else {            
         keyPress(e.key);
     }      
     
