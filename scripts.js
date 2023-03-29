@@ -1,45 +1,26 @@
 const player = document.querySelector(".main__svg__player");
 const mainContainerGrid = document.querySelector(".main__container")
-const enemy = document.querySelector(".main__svg__enemy");
-// const playerHitBox = player.getBBox()
-// const enemyHitBox = enemy.getBBox()
+const enemy = document.querySelectorAll(".main__svg__enemy");
+const dropPoint = document.querySelectorAll(".main__svg__dropPoint")
+const enemyArray = [...enemy];
+const dropArray = [...dropPoint];
+console.log(dropArray);
+const score = 1;
 
 const playerPosition = {
     x : player.getAttribute("x"),
-    y : player.getAttribute("y"),
-    width : player.getAttribute("width"),
-    height : player.getAttribute("height"),    
+    y : player.getAttribute("y"),       
 }
 
-const enemyPosition = {
-    x : enemy.getAttribute("x"),
-    y : enemy.getAttribute("y"),
-    width : enemy.getAttribute("width"),
-    height : enemy.getAttribute("height"),  
-}
+
+
 
 let playerXPosition = 0;
 let playerYPosition = 0;
 
-
-document.onkeydown = (e) => {   
-    if (e.key == " "){
-        playerPosition.x += 5;
-        keyPress(e.key) 
-    
-    }else if (checkCollision()){
-        keyPress(e.key)
-        enemyKeyPress(e.key)
-
-    }else {            
-        keyPress(e.key);
-    }      
-    
-};
-
-
-const checkCollision = () => {
-    if (playerPosition.x == enemyPosition.x && playerPosition.y == enemyPosition.y){
+const checkCollision = (playerX, playerY, enemyX, enemyY) => {
+    if (playerX == enemyX &&
+         playerY == enemyY){
        console.log("collision");        
         return true;
      } else {
@@ -49,6 +30,41 @@ const checkCollision = () => {
 
 };
 
+document.onkeydown = (e) => {     
+   const checkEnemy = enemyArray.map((element) => checkCollision(playerPosition.x, playerPosition.y,
+     element.getAttribute("x"), element.getAttribute("y")));
+
+   console.log(checkEnemy);
+    if (e.key == " "){
+        playerPosition.x += 5;
+        keyPress(e.key) 
+     // Put checkdrop logice here, and pass data into the awardpoint func.   
+        
+    } else if (checkEnemy.includes(true)) {      
+        keyPress(e.key);       
+        enemyKeyPress(e.key, checkEnemy.indexOf(true))
+        console.log(checkEnemy.indexOf(true));
+
+    }else {            
+        keyPress(e.key);
+    }      
+       
+};
+
+//Get checkenemy logic and pass it as a argument to the awardpoint func.
+// then set fill to nothing and award a point
+// after that start working on timer logic and point setup
+// then get the start and stop functionality in
+// then add art.
+
+
+const awardPoint = () => {
+    const checkDrop = dropArray.map((element) => checkCollision(playerPosition.x, playerPosition.y,
+        element.getAttribute("x"), element.getAttribute("y")));
+        console.log(checkDrop);
+   
+}
+
 
 const keyPress = (pressedKey) => {
     
@@ -56,62 +72,51 @@ const keyPress = (pressedKey) => {
     if (pressedKey == "ArrowRight") { 
         playerXPosition+=5;
         player.setAttribute("x", `${playerXPosition}`);
-        playerPosition.x = player.getAttribute("x");       
+        playerPosition.x = player.getAttribute("x");   
+        return playerPosition.x;    
         
     } else if (pressedKey == "ArrowLeft"){
         playerXPosition-=5;
         player.setAttribute("x", `${playerXPosition}`);
         playerPosition.x = player.getAttribute("x");
+        return playerPosition.x;
 
     } else if (pressedKey == "ArrowDown") {
         playerYPosition+=5;
         player.setAttribute("y", `${playerYPosition}`);
         playerPosition.y = player.getAttribute("y");
+        return playerPosition.y;
 
     } else if (pressedKey == "ArrowUp") {
         playerYPosition-=5;
         player.setAttribute("y", `${playerYPosition}`);
-        playerPosition.y = player.getAttribute("y");       
-
-    } 
+        playerPosition.y = player.getAttribute("y");
+        return playerPosition.y;
+    }  
     
-
-    // console.log(enemyPosition.width);
-    // console.log(enemyPosition.height);
-
-
-    console.log(enemyPosition.x);
-    console.log(enemyPosition.y);
-    console.log(playerPosition.x);
-    console.log(playerPosition.y);
+    
     return pressedKey;
 }
 
 
-const enemyKeyPress = (pressedKey) => {
-    
+const enemyKeyPress = (pressedKey, enemy) => {    
     
     if (pressedKey == "ArrowRight") {       
-        enemy.setAttribute("x", `${playerXPosition}`);
-        enemyPosition.x = enemy.getAttribute("x");       
+        enemyArray[enemy].setAttribute("x", `${playerXPosition}`);               
         
     } else if (pressedKey == "ArrowLeft"){       
-        enemy.setAttribute("x", `${playerXPosition}`);
-        enemyPosition.x = enemy.getAttribute("x");
+        enemyArray[enemy].setAttribute("x", `${playerXPosition}`);        
 
     } else if (pressedKey == "ArrowDown") {       
-        enemy.setAttribute("y", `${playerYPosition}`);
-        enemyPosition.y = enemy.getAttribute("y");
+        enemyArray[enemy].setAttribute("y", `${playerYPosition}`);        
 
     } else if (pressedKey == "ArrowUp") {
-        enemy.setAttribute("y", `${playerYPosition}`);
-        enemyPosition.y = enemy.getAttribute("y");
+        enemyArray[enemy].setAttribute("y", `${playerYPosition}`);
         
-
     } 
        
     return pressedKey;
-}
+};
 
 
 
@@ -129,5 +134,3 @@ const enemyKeyPress = (pressedKey) => {
 
 //Testing suite
 // module.exports = { keyPress }
-
-
