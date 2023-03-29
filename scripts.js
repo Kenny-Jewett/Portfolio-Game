@@ -45,7 +45,7 @@ document.onkeydown = (e) => {
         enemyKeyPress(e.key, checkEnemy.indexOf(true))
         console.log(checkEnemy.indexOf(true));
 
-    }else {            
+    } else {            
         keyPress(e.key);
     }      
        
