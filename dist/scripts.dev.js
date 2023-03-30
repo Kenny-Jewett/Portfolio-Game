@@ -24,7 +24,7 @@ var clickBlocker = document.querySelector(".clickBlocker");
 var playerXPosition = 0;
 var playerYPosition = 0;
 var score = enemyArray.length;
-var counter = 60;
+var counter = 30;
 
 var gameOver = function gameOver() {
   if (counter >= 0) {

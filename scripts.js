@@ -13,7 +13,7 @@ const clickBlocker = document.querySelector(".clickBlocker")
 let playerXPosition = 0;
 let playerYPosition = 0;
 let score = (enemyArray.length);
-let counter = 60;
+let counter = 30;
 
 
 
@@ -104,8 +104,8 @@ const keyPress = (pressedKey) => {
 
         
         if (pressedKey == "ArrowRight") { 
-            playerXPosition+=5;
-            player.setAttribute("x", `${playerXPosition}`);
+        playerXPosition+=5;
+        player.setAttribute("x", `${playerXPosition}`);
         playerPosition.x = player.getAttribute("x");   
         return playerPosition.x;    
         
