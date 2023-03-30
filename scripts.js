@@ -4,8 +4,37 @@ const enemy = document.querySelectorAll(".main__svg__enemy");
 const dropPoint = document.querySelectorAll(".main__svg__dropPoint")
 const enemyArray = [...enemy];
 const dropArray = [...dropPoint];
-console.log(dropArray);
-const score = 1;
+const pointCounter = document.querySelector(".point-counter")
+const restartButton = document.querySelector(".restart");
+const timer = document.querySelector(".timer");
+const clickBlocker = document.querySelector(".clickBlocker")
+
+
+let playerXPosition = 0;
+let playerYPosition = 0;
+let score = (enemyArray.length);
+let counter = 60;
+
+
+
+
+const gameOver = () => {
+    if (counter >= 0){
+        timer.innerHTML = parseInt(counter); 
+        counter--    
+    } else {
+       clickBlocker.style.pointerEvents = "none";
+
+    }
+} 
+setInterval(gameOver, 1000);
+
+const reloadFunc = () => {
+ location.reload(false);
+};
+
+ restartButton.addEventListener("click", reloadFunc); 
+
 
 const playerPosition = {
     x : player.getAttribute("x"),
@@ -13,18 +42,11 @@ const playerPosition = {
 }
 
 
-
-
-let playerXPosition = 0;
-let playerYPosition = 0;
-
 const checkCollision = (playerX, playerY, enemyX, enemyY) => {
     if (playerX == enemyX &&
-         playerY == enemyY){
-       console.log("collision");        
+         playerY == enemyY){              
         return true;
-     } else {
-        console.log("no collision");
+     } else {        
         return false;
      }
 
@@ -34,21 +56,28 @@ document.onkeydown = (e) => {
    const checkEnemy = enemyArray.map((element) => checkCollision(playerPosition.x, playerPosition.y,
      element.getAttribute("x"), element.getAttribute("y")));
 
-   console.log(checkEnemy);
+     
+   const checkDrop = dropArray.map((element) => checkCollision(element.getAttribute("x"),
+    element.getAttribute("y"), playerPosition.x, playerPosition.y));  
+   
     if (e.key == " "){
-        playerPosition.x += 5;
-        keyPress(e.key) 
+        const dropIndex = checkDrop.indexOf(true);
+        if (dropIndex == checkEnemy.indexOf(true)) {
+            enemyArray[checkEnemy.indexOf(true)].setAttribute("fill", "#001219");
+            playerPosition.x += 5;
+            awardPoint();
+            keyPress(e.key) 
+        }
+
      // Put checkdrop logice here, and pass data into the awardpoint func.   
         
-    } else if (checkEnemy.includes(true)) {      
+    }else if (checkEnemy.includes(true)) {      
         keyPress(e.key);       
-        enemyKeyPress(e.key, checkEnemy.indexOf(true))
-        console.log(checkEnemy.indexOf(true));
+        enemyKeyPress(e.key, checkEnemy.indexOf(true))       
 
     } else {            
         keyPress(e.key);
-    }      
-       
+    }       
 };
 
 //Get checkenemy logic and pass it as a argument to the awardpoint func.
@@ -59,19 +88,24 @@ document.onkeydown = (e) => {
 
 
 const awardPoint = () => {
-    const checkDrop = dropArray.map((element) => checkCollision(playerPosition.x, playerPosition.y,
-        element.getAttribute("x"), element.getAttribute("y")));
-        console.log(checkDrop);
-   
+
+    score -= 1;
+    counter += 3;
+    pointCounter.innerHTML = score;
+   console.log(score);
 }
 
 
 const keyPress = (pressedKey) => {
-    
-    
-    if (pressedKey == "ArrowRight") { 
-        playerXPosition+=5;
-        player.setAttribute("x", `${playerXPosition}`);
+    if (counter <= 0) {
+        playerXPosition = 0;
+        playerYPosition = 0;
+    } else {
+
+        
+        if (pressedKey == "ArrowRight") { 
+            playerXPosition+=5;
+            player.setAttribute("x", `${playerXPosition}`);
         playerPosition.x = player.getAttribute("x");   
         return playerPosition.x;    
         
@@ -80,7 +114,7 @@ const keyPress = (pressedKey) => {
         player.setAttribute("x", `${playerXPosition}`);
         playerPosition.x = player.getAttribute("x");
         return playerPosition.x;
-
+        
     } else if (pressedKey == "ArrowDown") {
         playerYPosition+=5;
         player.setAttribute("y", `${playerYPosition}`);
@@ -94,7 +128,8 @@ const keyPress = (pressedKey) => {
         return playerPosition.y;
     }  
     
-    
+}      
+
     return pressedKey;
 }
 

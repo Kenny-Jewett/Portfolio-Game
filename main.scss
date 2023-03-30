@@ -4,6 +4,7 @@
 *,
 *::before,
 *::after {
+    margin: 0;
   box-sizing: border-box;
 }
 
@@ -29,6 +30,7 @@ picture {
     padding: 2rem;  
     display: flex;
     justify-content: center;
+    color: #ffaf03;
     
 }
 
@@ -36,6 +38,7 @@ picture {
 .main__svg__container {
     border: solid 2px black;
     max-height: 75dvh;
+    background-color: #001219;
     
 }
 
