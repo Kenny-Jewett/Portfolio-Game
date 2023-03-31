@@ -8,6 +8,7 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
+//  **Comment out for tests**
 var player = document.querySelector(".main__svg__player");
 var mainContainerGrid = document.querySelector(".main__container");
 var enemy = document.querySelectorAll(".main__svg__enemy");
@@ -21,18 +22,53 @@ var pointCounter = document.querySelector(".point-counter");
 var restartButton = document.querySelector(".restart");
 var timer = document.querySelector(".timer");
 var clickBlocker = document.querySelector(".clickBlocker");
+var startButton = document.querySelector(".start");
+var winCondition = document.querySelector(".win-loss-message");
 var playerXPosition = 0;
 var playerYPosition = 0;
 var score = enemyArray.length;
-var counter = 30;
+var counter = 0;
+var playerPosition = {
+  x: player.getAttribute("x"),
+  y: player.getAttribute("y")
+};
+
+var startGame = function startGame() {
+  counter += 50;
+  clickBlocker.style = "opacity: 100%";
+  winCondition.style = "visibility: hidden";
+};
+
+startButton.addEventListener("click", startGame);
 
 var gameOver = function gameOver() {
-  if (counter >= 0) {
+  if (counter >= 0 && score > 0) {
     timer.innerHTML = parseInt(counter);
     counter--;
+  } else if (counter >= 0 && score == 0) {
+    restartButton.style = "visibility: visible";
+    clickBlocker.style = "opacity: 30%";
+    winCondition.style = "visibility: visible";
+    winCondition.innerHTML = "Congratulations! You Win!!!!!";
+  } else if (counter < 0 && score > 0) {
+    restartButton.style = "visibility: visible";
+    clickBlocker.style = "opacity: 30%";
+    winCondition.style = "visibility: visible";
+    winCondition.innerHTML = "Press Restart then press Start to begin.";
   } else {
     clickBlocker.style.pointerEvents = "none";
+    clickBlocker.style = "opacity: 30%";
+    restartButton.style = "visibility: visible";
+    winCondition.innerHTML = "Press Restart to try again.";
   }
+}; //  **Comment out for testing**
+
+
+var awardPoint = function awardPoint() {
+  score -= 1;
+  counter += 3;
+  pointCounter.innerHTML = score;
+  console.log(score);
 };
 
 setInterval(gameOver, 1000);
@@ -42,10 +78,6 @@ var reloadFunc = function reloadFunc() {
 };
 
 restartButton.addEventListener("click", reloadFunc);
-var playerPosition = {
-  x: player.getAttribute("x"),
-  y: player.getAttribute("y")
-};
 
 var checkCollision = function checkCollision(playerX, playerY, enemyX, enemyY) {
   if (playerX == enemyX && playerY == enemyY) {
@@ -53,7 +85,8 @@ var checkCollision = function checkCollision(playerX, playerY, enemyX, enemyY) {
   } else {
     return false;
   }
-};
+}; //    ** Comment out for testing **
+
 
 document.onkeydown = function (e) {
   var checkEnemy = enemyArray.map(function (element) {
@@ -71,26 +104,13 @@ document.onkeydown = function (e) {
       playerPosition.x += 5;
       awardPoint();
       keyPress(e.key);
-    } // Put checkdrop logice here, and pass data into the awardpoint func.   
-
+    }
   } else if (checkEnemy.includes(true)) {
     keyPress(e.key);
     enemyKeyPress(e.key, checkEnemy.indexOf(true));
   } else {
     keyPress(e.key);
   }
-}; //Get checkenemy logic and pass it as a argument to the awardpoint func.
-// then set fill to nothing and award a point
-// after that start working on timer logic and point setup
-// then get the start and stop functionality in
-// then add art.
-
-
-var awardPoint = function awardPoint() {
-  score -= 1;
-  counter += 3;
-  pointCounter.innerHTML = score;
-  console.log(score);
 };
 
 var keyPress = function keyPress(pressedKey) {
@@ -136,5 +156,5 @@ var enemyKeyPress = function enemyKeyPress(pressedKey, enemy) {
   }
 
   return pressedKey;
-}; //Testing suite
-// module.exports = { keyPress }
+}; // Testing suite
+// module.exports = { keyPress, checkCollision, enemyKeyPress }

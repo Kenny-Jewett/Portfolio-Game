@@ -26,24 +26,86 @@ picture {
 }
   
 .main__container {
-    max-height: 100dvh; 
+    max-height: 100%; 
     padding: 2rem;  
     display: flex;
     justify-content: center;
-    color: #ffaf03;
+    
     
 }
 
 
 .main__svg__container {
     border: solid 2px black;
-    max-height: 75dvh;
+    max-height: 60dvh;
     background-color: #001219;
     
 }
 
-.main__svg__player {
+.clickBlocker {
+    opacity: 100%;
+}
+
+.restart {
+    visibility: hidden;
+
+}
+
+.button__container {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
     
 }
 
+.restart {
+    padding: 1rem;
+    border: #001219 2px solid;
+    border-radius: 1rem;
+    font-size: 1rem;
+    background-color: red;
+    color: white;
+}
+
+.start {
+    padding: 1rem;
+    border: #001219 2px solid;
+    border-radius: 1rem;
+    font-size: 1rem;
+    background-color: green;
+    color: white;
+}
+
+.timer__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.timer-text {
+    font-size: 2rem;
+    padding: 1rem;
+    color: white;
+}
+
+.timer {
+    font-size: 2rem;
+    color: white;
+}
+
+.point-counter {
+    color: white;  
+    padding-left: 1rem; 
+}
+
+.point-counter__text{
+    color: white;
+    padding-left: 2rem;
+}
+
+.win-loss-message {
+    display: flex;
+    justify-content: center;
+    color: white;
+}
 
