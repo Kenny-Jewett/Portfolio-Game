@@ -13,7 +13,7 @@ body {
   min-height: 100vh;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
-  background-color: blue;
+  background-color: rgba(4, 4, 88, 0.863);
 }
 
 img,
