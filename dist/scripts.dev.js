@@ -72,7 +72,6 @@ var awardPoint = function awardPoint() {
   score -= 1;
   counter += 3;
   pointCounter.innerHTML = score;
-  console.log(score);
 };
 
 setInterval(gameOver, 1000);

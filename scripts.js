@@ -61,9 +61,7 @@ const gameOver = () => {
 const awardPoint = () => {
     score -= 1;
     counter += 3;
-    pointCounter.innerHTML = score;
-   console.log(score);
-    
+    pointCounter.innerHTML = score;    
 }
 
 setInterval(gameOver, 1000);
