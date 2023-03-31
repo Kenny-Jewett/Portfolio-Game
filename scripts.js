@@ -25,7 +25,8 @@ const playerPosition = {
 const startGame = () => {
     counter += 50;
     clickBlocker.style = "opacity: 100%"; 
-    winCondition.style = "visibility: hidden";   
+    winCondition.style = "visibility: hidden"; 
+   startButton.style = "visibility: hidden";
 }
 
 startButton.addEventListener("click", startGame);
@@ -38,16 +39,19 @@ const gameOver = () => {
         restartButton.style = "visibility: visible";
         clickBlocker.style = "opacity: 30%";
         winCondition.style = "visibility: visible";
+        startButton.style = "visibility: visible";
         winCondition.innerHTML = "Congratulations! You Win!!!!!";    
     } else if (counter < 0 && score > 0) {
         restartButton.style = "visibility: visible";
         clickBlocker.style = "opacity: 30%";
         winCondition.style = "visibility: visible";
+        startButton.style = "visibility: visible";
         winCondition.innerHTML = "Press Restart then press Start to begin.";        
     } else {        
         clickBlocker.style.pointerEvents = "none";
         clickBlocker.style = "opacity: 30%";
         restartButton.style = "visibility: visible";
+        startButton.style = "visibility: visible";
         winCondition.innerHTML = "Press Restart to try again."  
     }
 } 
